@@ -7,9 +7,8 @@
         public Board Board { get; protected set; }
         public int AmountMovies { get; protected set; } = 0;
 
-        public Piece(Position position, Color color, Board board)
+        public Piece(Color color, Board board)
         {
-            Position = position;
             Color = color;
             Board = board;
         }
