@@ -10,6 +10,7 @@ namespace console_chess
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
