@@ -1,11 +1,6 @@
 ﻿using board;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ChessGame
+namespace chessGame
 {
     internal class Queen : Piece
     {

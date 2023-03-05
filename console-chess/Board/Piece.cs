@@ -12,5 +12,10 @@
             Color = color;
             Board = board;
         }
+
+        public void ChangeAmountMovies() 
+        {
+            AmountMovies++;
+        }
     }
 }

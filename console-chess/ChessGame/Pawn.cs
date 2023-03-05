@@ -1,6 +1,6 @@
 ﻿using board;
 
-namespace ChessGame
+namespace chessGame
 {
     internal class Pawn : Piece
     {
