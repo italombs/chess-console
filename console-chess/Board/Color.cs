@@ -9,6 +9,7 @@
         Red,
         Blue,
         Gray,
-        Purple
+        Purple,
+        Orange
     }
 }
