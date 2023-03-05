@@ -10,12 +10,14 @@ namespace chessGame
         public Board Board { get; private set; }
         private int Move;
         private Color ActualPlayerColor;
+        public bool EndGame { get; private set; }
 
         public ChessGame()
         {
             Board = new Board(8, 8);
             Move = 1;
             ActualPlayerColor = Color.White;
+            EndGame = false;
             PutPieces();
         }
 

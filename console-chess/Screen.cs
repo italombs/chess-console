@@ -1,4 +1,5 @@
 ﻿using board;
+using chessGame;
 using System;
 
 namespace console_chess
@@ -60,6 +61,13 @@ namespace console_chess
                 Console.Write(piece + " ");
                 Console.ForegroundColor = actualColor;
             }
+        }
+
+        public static ChessPosition ReadChessPosition()
+        {
+            string position = Console.ReadLine();
+
+            return new ChessPosition(position[0], int.Parse(position[1].ToString()));
         }
     }
 }

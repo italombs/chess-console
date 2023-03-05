@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using board;
 using chessGame;
 
@@ -13,7 +14,22 @@ namespace console_chess
             {
                 ChessGame chessGame = new ChessGame();
 
-                Screen.PrintBoard(chessGame.Board);
+                while (!chessGame.EndGame)
+                {
+                    Console.Clear();
+                    Screen.PrintBoard(chessGame.Board);
+
+                    Console.WriteLine("");
+                    Console.Write("Enter initial position: ");
+                    Position initialPosition = Screen.ReadChessPosition().ToPosition();
+
+                    Console.Write("Enter final position: ");
+                    Position finalPosition = Screen.ReadChessPosition().ToPosition();
+
+                    chessGame.ExecuteMovement(initialPosition, finalPosition);
+
+                }
+
             }
             catch(BoardException e)
             {
