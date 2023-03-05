@@ -10,7 +10,7 @@ namespace board
     {
         public int Rows { get; set; }
         public int Columns { get; set; }
-        public Piece[,] Pieces;
+        private Piece[,] Pieces;
 
         public Board(int rows, int columns)
         {
