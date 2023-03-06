@@ -7,7 +7,7 @@ namespace chessGame
     {
         public Queen(Color color, Board board) : base(color, board) { }
 
-        public override bool[,] PossibleMoves()
+        public override bool[,] PossiblesMoves()
         {
             bool[,] possiblesMoves = new bool[Board.Rows, Board.Columns];
 

@@ -6,7 +6,7 @@ namespace chessGame
     internal class Rook : Piece
     {
         public Rook(Color color, Board board) : base(color, board) { }
-        public override bool[,] PossibleMoves()
+        public override bool[,] PossiblesMoves()
         {
             bool[,] possiblesMoves = new bool[Board.Rows, Board.Columns];
             Position position = new Position(0, 0);

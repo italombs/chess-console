@@ -8,8 +8,8 @@ namespace chessGame
     internal class ChessGame
     {
         public Board Board { get; private set; }
-        private int Move;
-        private Color CurrentPlayerColor;
+        public int Move { get; private set; }
+        public Color CurrentPlayerColor { get; private set; }
         public bool EndGame { get; private set; }
 
         public ChessGame()
@@ -21,7 +21,7 @@ namespace chessGame
             PutPieces();
         }
 
-        public void ExecuteMovement(Position initialPosition, Position finalPosition)
+        private void Movement(Position initialPosition, Position finalPosition)
         {
             Piece piece = Board.RemovePiece(initialPosition);
             piece.ChangeAmountMovies();
@@ -29,10 +29,40 @@ namespace chessGame
             Board.PutPiece(piece, finalPosition);
         }
 
+        public void ExecuteMove(Position initialPosition, Position finalPosition)
+        {
+            Movement(initialPosition, finalPosition);
+            Move++;
+
+            if (CurrentPlayerColor == Color.White)
+                CurrentPlayerColor = Color.Black;
+            else
+                CurrentPlayerColor = Color.White;
+        }
+
+        private bool StartingPostionIsValid(Position initialPosition)
+        {
+            if (Board.GetPiece(initialPosition) != null)
+                return true;
+            else
+                return false;
+
+        }
+
+        public void ValidateStartingPosition(Position initialPosition)
+        {
+            if (!StartingPostionIsValid(initialPosition))
+                throw new BoardException("Position has no piece!");
+            if (!Board.GetPiece(initialPosition).CanPossiblesMoves())
+                throw new BoardException("Piece has no possible moves!");
+            if(Board.GetPiece(initialPosition).Color != CurrentPlayerColor)
+                throw new BoardException("Invalid player!");
+        }
+
         private void PutPieces()
         {
-            char[] cls = new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-            
+            char[] cls = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+
             Board.PutPiece(new Rook(Color.White, Board), new ChessPosition('a', 1).ToPosition());
             Board.PutPiece(new Rook(Color.White, Board), new ChessPosition('h', 1).ToPosition());
             Board.PutPiece(new Knight(Color.White, Board), new ChessPosition('b', 1).ToPosition());

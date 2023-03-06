@@ -18,6 +18,21 @@
             AmountMovies++;
         }
 
-        public abstract bool[,] PossibleMoves();
+        public bool CanPossiblesMoves()
+        {
+            bool[,] possiblesMoves = PossiblesMoves();
+            for (int i = 0; i < Board.Rows; i++)
+            {
+                for(int j = 0; j < Board.Columns; j++)
+                {
+                    if (possiblesMoves[i, j])
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public abstract bool[,] PossiblesMoves();
     }
 }
