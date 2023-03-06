@@ -18,7 +18,7 @@
             AmountMovies++;
         }
 
-        public bool CanPossiblesMoves()
+        public bool HasPossiblesMoves()
         {
             bool[,] possiblesMoves = PossiblesMoves();
             for (int i = 0; i < Board.Rows; i++)

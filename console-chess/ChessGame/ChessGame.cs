@@ -44,7 +44,7 @@ namespace chessGame
         {
             if (Board.GetPiece(initialPosition) == null)
                 throw new BoardException("Position has no piece!");
-            if (!Board.GetPiece(initialPosition).CanPossiblesMoves())
+            if (!Board.GetPiece(initialPosition).HasPossiblesMoves())
                 throw new BoardException("Piece has no possible moves!");
             if(Board.GetPiece(initialPosition).Color != CurrentPlayerColor)
                 throw new BoardException("Invalid player!");
