@@ -43,11 +43,17 @@ namespace chessGame
         public void ValidateStartingPosition(Position initialPosition)
         {
             if (Board.GetPiece(initialPosition) == null)
-                throw new BoardException("Position has no piece!");
+                throw new BoardException("There is no piece in the chosen origin position!");
             if (!Board.GetPiece(initialPosition).HasPossiblesMoves())
-                throw new BoardException("Piece has no possible moves!");
+                throw new BoardException("There are no possible moves for the chosen piece!");
             if(Board.GetPiece(initialPosition).Color != CurrentPlayerColor)
                 throw new BoardException("Invalid player!");
+        }
+
+        public void ValidateDestinationPosition(Position initialPosition, Position finalPosition)
+        {
+            if(!Board.GetPiece(initialPosition).CanMoveTo(finalPosition))
+                throw new BoardException("Invalid target position!");
         }
 
         private void PutPieces()

@@ -33,6 +33,11 @@
             return false;
         }
 
+        public bool CanMoveTo(Position position)
+        {
+            return PossiblesMoves()[position.Row, position.Column];
+        }
+
         public abstract bool[,] PossiblesMoves();
     }
 }

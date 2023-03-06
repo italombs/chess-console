@@ -40,6 +40,8 @@ namespace console_chess
                         Console.Write("Enter final position: ");
                         Position finalPosition = Screen.ReadChessPosition().ToPosition();
 
+                        chessGame.ValidateDestinationPosition(initialPosition, finalPosition);
+
                         chessGame.ExecuteMove(initialPosition, finalPosition);
                     }
                     catch (BoardException ex)
