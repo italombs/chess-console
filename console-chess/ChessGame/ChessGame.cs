@@ -40,18 +40,9 @@ namespace chessGame
                 CurrentPlayerColor = Color.White;
         }
 
-        private bool StartingPostionIsValid(Position initialPosition)
-        {
-            if (Board.GetPiece(initialPosition) != null)
-                return true;
-            else
-                return false;
-
-        }
-
         public void ValidateStartingPosition(Position initialPosition)
         {
-            if (!StartingPostionIsValid(initialPosition))
+            if (Board.GetPiece(initialPosition) == null)
                 throw new BoardException("Position has no piece!");
             if (!Board.GetPiece(initialPosition).CanPossiblesMoves())
                 throw new BoardException("Piece has no possible moves!");
