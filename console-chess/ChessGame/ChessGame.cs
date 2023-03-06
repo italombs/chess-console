@@ -9,14 +9,14 @@ namespace chessGame
     {
         public Board Board { get; private set; }
         private int Move;
-        private Color ActualPlayerColor;
+        private Color CurrentPlayerColor;
         public bool EndGame { get; private set; }
 
         public ChessGame()
         {
             Board = new Board(8, 8);
             Move = 1;
-            ActualPlayerColor = Color.White;
+            CurrentPlayerColor = Color.White;
             EndGame = false;
             PutPieces();
         }
@@ -42,10 +42,10 @@ namespace chessGame
             Board.PutPiece(new Queen(Color.White, Board), new ChessPosition('d', 1).ToPosition());
             Board.PutPiece(new King(Color.White, Board), new ChessPosition('e', 1).ToPosition());
 
-            foreach(char c in cls)
-            {
-                Board.PutPiece(new Pawn(Color.White, Board), new ChessPosition(c, 2).ToPosition());
-            }
+            //foreach (char c in cls)
+            //{
+            //    Board.PutPiece(new Pawn(Color.White, Board), new ChessPosition(c, 2).ToPosition());
+            //}
 
             Board.PutPiece(new Rook(Color.Black, Board), new ChessPosition('a', 8).ToPosition());
             Board.PutPiece(new Rook(Color.Black, Board), new ChessPosition('h', 8).ToPosition());
@@ -56,10 +56,10 @@ namespace chessGame
             Board.PutPiece(new Queen(Color.Black, Board), new ChessPosition('d', 8).ToPosition());
             Board.PutPiece(new King(Color.Black, Board), new ChessPosition('e', 8).ToPosition());
 
-            foreach (char c in cls)
-            {
-                Board.PutPiece(new Pawn(Color.Black, Board), new ChessPosition(c, 7).ToPosition());
-            }
+            //foreach (char c in cls)
+            //{
+            //    Board.PutPiece(new Pawn(Color.Black, Board), new ChessPosition(c, 7).ToPosition());
+            //}
         }
 
     }

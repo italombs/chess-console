@@ -23,11 +23,15 @@ namespace console_chess
                     Console.Write("Enter initial position: ");
                     Position initialPosition = Screen.ReadChessPosition().ToPosition();
 
+                    bool[,] possiblesMoves = chessGame.Board.GetPiece(initialPosition).PossibleMoves();
+
+                    Console.Clear();
+                    Screen.PrintBoard(chessGame.Board, possiblesMoves);
+
                     Console.Write("Enter final position: ");
                     Position finalPosition = Screen.ReadChessPosition().ToPosition();
 
                     chessGame.ExecuteMovement(initialPosition, finalPosition);
-
                 }
 
             }
