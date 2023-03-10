@@ -13,9 +13,14 @@
             Board = board;
         }
 
-        public void ChangeAmountMovies() 
+        public void IncreaseAmountMovies() 
         {
             AmountMovies++;
+        }
+
+        public void DecreaseAmountMovies()
+        {
+            AmountMovies--;
         }
 
         public bool HasPossiblesMoves()

@@ -6,7 +6,7 @@ namespace console_chess
 {
     internal class Screen
     {
-        public static void PrintBoard(Board board)
+        private static void PrintBoard(Board board)
         {
             ConsoleColor actualColor = Console.ForegroundColor;
 
@@ -59,6 +59,15 @@ namespace console_chess
             Console.WriteLine();
             Console.WriteLine("Move: " + chessGame.Move);
             Console.WriteLine("Wainting player: " + chessGame.CurrentPlayerColor);
+
+            if (chessGame.Check)
+            {
+                ConsoleColor consoleColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("King's in Check!");
+                Console.ForegroundColor = consoleColor;
+            }
+
 
             Console.WriteLine();
             Console.Write("Enter initial position: ");
@@ -127,7 +136,7 @@ namespace console_chess
             Console.ForegroundColor = actualColor;
         }
 
-        public static void PrintPiece(Piece piece)
+        private static void PrintPiece(Piece piece)
         {
             if (piece == null)
             {
