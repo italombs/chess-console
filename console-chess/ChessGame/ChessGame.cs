@@ -44,6 +44,9 @@ namespace chessGame
             else
                 Check = false;
 
+            if (Checkmate(NextPlayerColor(CurrentPlayerColor)))
+                EndGame = true;
+
             Move++;
 
             if (CurrentPlayerColor == Color.White)
@@ -161,11 +164,11 @@ namespace chessGame
             return piecesInGame;
         }
 
-        private bool InCheck(Color cor)
+        public bool InCheck(Color color)
         {
-            Piece king = GetKingPosition(cor);
+            Piece king = GetKingPosition(color);
 
-            foreach (Piece piece in GetPiecesInGame(NextPlayerColor(cor)))
+            foreach (Piece piece in GetPiecesInGame(NextPlayerColor(color)))
             {
                 bool[,] possiblesMoves = piece.PossiblesMoves();
 
@@ -175,6 +178,41 @@ namespace chessGame
 
             return false;
 
+        }
+
+        private bool Checkmate(Color color)
+        {
+            if (!Check)
+            {
+                return false;
+            }
+            else
+            {
+                foreach(Piece piece in GetPiecesInGame(color))
+                {
+                    bool[,] possiblesMoves = piece.PossiblesMoves();
+
+                    for(int i = 0; i < Board.Rows; i++)
+                    {
+                        for(int j = 0; j < Board.Columns; j++)
+                        {
+                            if (possiblesMoves[i, j])
+                            {
+                                Position finalPosition = new Position(i, j);
+                                Position initalPosition = piece.Position;
+                                Piece capturedPiece = Movement(initalPosition, finalPosition);
+                                bool inCheck = InCheck(color);
+                                UndoMovement(capturedPiece, initalPosition, finalPosition);
+                                if (!inCheck) 
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
         }
 
         private Piece GetKingPosition(Color color)

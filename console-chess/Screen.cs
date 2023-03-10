@@ -56,21 +56,36 @@ namespace console_chess
             PrintCapturedPieces(chessGame, Color.Black);
             Console.WriteLine();
 
-            Console.WriteLine();
-            Console.WriteLine("Move: " + chessGame.Move);
-            Console.WriteLine("Wainting player: " + chessGame.CurrentPlayerColor);
-
-            if (chessGame.Check)
+            if (chessGame.EndGame)
             {
-                ConsoleColor consoleColor = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("King's in Check!");
-                Console.ForegroundColor = consoleColor;
+                ConsoleColor actualColor = Console.ForegroundColor;
+                if (chessGame.CurrentPlayerColor == Color.Black)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+                Console.WriteLine();
+                Console.WriteLine("End Game! The " + chessGame.CurrentPlayerColor + " winner!");
+                Console.WriteLine();
+
+                Console.ForegroundColor = actualColor;
             }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Move: " + chessGame.Move);
+                Console.WriteLine("Wainting player: " + chessGame.CurrentPlayerColor);
+
+                if (chessGame.Check)
+                {
+                    ConsoleColor consoleColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("King's in Check!");
+                    Console.ForegroundColor = consoleColor;
+                }
 
 
-            Console.WriteLine();
-            Console.Write("Enter initial position: ");
+                Console.WriteLine();
+                Console.Write("Enter initial position: ");
+            }
         }
 
         private static void PrintCapturedPieces(ChessGame chessGame, Color color)

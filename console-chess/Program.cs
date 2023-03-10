@@ -45,6 +45,8 @@ namespace console_chess
                     }
                 }
 
+                Screen.ShowGame(chessGame);
+
             }
             catch(BoardException e)
             {
