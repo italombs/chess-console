@@ -18,15 +18,8 @@ namespace console_chess
                 {
                     try
                     {
-                        Console.Clear();
-                        Screen.PrintBoard(chessGame.Board);
 
-                        Console.WriteLine();
-                        Console.WriteLine("Move: " + chessGame.Move);
-                        Console.WriteLine("Wainting player: " + chessGame.CurrentPlayerColor);
-
-                        Console.WriteLine();
-                        Console.Write("Enter initial position: ");
+                        Screen.ShowGame(chessGame);
                         Position initialPosition = Screen.ReadChessPosition().ToPosition();
 
                         chessGame.ValidateStartingPosition(initialPosition);

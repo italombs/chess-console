@@ -2,6 +2,7 @@
 using console_chess;
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace chessGame
 {
@@ -11,6 +12,8 @@ namespace chessGame
         public int Move { get; private set; }
         public Color CurrentPlayerColor { get; private set; }
         public bool EndGame { get; private set; }
+        private HashSet<Piece> AllPiece;
+        private HashSet<Piece> PiecesOutGame;
 
         public ChessGame()
         {
@@ -18,6 +21,8 @@ namespace chessGame
             Move = 1;
             CurrentPlayerColor = Color.White;
             EndGame = false;
+            AllPiece = new HashSet<Piece>();
+            PiecesOutGame = new HashSet<Piece>();
             PutPieces();
         }
 
@@ -27,6 +32,8 @@ namespace chessGame
             piece.ChangeAmountMovies();
             Piece capturedPiece = Board.RemovePiece(finalPosition);
             Board.PutPiece(piece, finalPosition);
+            if (capturedPiece != null)
+                PiecesOutGame.Add(capturedPiece);
         }
 
         public void ExecuteMove(Position initialPosition, Position finalPosition)
@@ -56,37 +63,71 @@ namespace chessGame
                 throw new BoardException("Invalid target position!");
         }
 
+        private void StartPieces(Piece piece, char column, int row)
+        {
+            Board.PutPiece(piece, new ChessPosition(column, row).ToPosition());
+            AllPiece.Add(piece);
+        }
+
         private void PutPieces()
         {
             char[] cls = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 
-            Board.PutPiece(new Rook(Color.White, Board), new ChessPosition('a', 1).ToPosition());
-            Board.PutPiece(new Rook(Color.White, Board), new ChessPosition('h', 1).ToPosition());
-            Board.PutPiece(new Knight(Color.White, Board), new ChessPosition('b', 1).ToPosition());
-            Board.PutPiece(new Knight(Color.White, Board), new ChessPosition('g', 1).ToPosition());
-            Board.PutPiece(new Bishop(Color.White, Board), new ChessPosition('c', 1).ToPosition());
-            Board.PutPiece(new Bishop(Color.White, Board), new ChessPosition('f', 1).ToPosition());
-            Board.PutPiece(new Queen(Color.White, Board), new ChessPosition('d', 1).ToPosition());
-            Board.PutPiece(new King(Color.White, Board), new ChessPosition('e', 1).ToPosition());
+            StartPieces(new Rook(Color.White, Board), 'a', 1);
+            StartPieces(new Rook(Color.White, Board), 'h', 1);
+            StartPieces(new Knight(Color.White, Board), 'b', 1);
+            StartPieces(new Knight(Color.White, Board), 'g', 1);
+            StartPieces(new Bishop(Color.White, Board), 'c', 1);
+            StartPieces(new Bishop(Color.White, Board), 'f', 1);
+            StartPieces(new Queen(Color.White, Board), 'd', 1);
+            StartPieces(new King(Color.White, Board), 'e', 1);
 
             //foreach (char c in cls)
             //{
             //    Board.PutPiece(new Pawn(Color.White, Board), new ChessPosition(c, 2).ToPosition());
             //}
 
-            Board.PutPiece(new Rook(Color.Black, Board), new ChessPosition('a', 8).ToPosition());
-            Board.PutPiece(new Rook(Color.Black, Board), new ChessPosition('h', 8).ToPosition());
-            Board.PutPiece(new Knight(Color.Black, Board), new ChessPosition('b', 8).ToPosition());
-            Board.PutPiece(new Knight(Color.Black, Board), new ChessPosition('g', 8).ToPosition());
-            Board.PutPiece(new Bishop(Color.Black, Board), new ChessPosition('c', 8).ToPosition());
-            Board.PutPiece(new Bishop(Color.Black, Board), new ChessPosition('f', 8).ToPosition());
-            Board.PutPiece(new Queen(Color.Black, Board), new ChessPosition('d', 8).ToPosition());
-            Board.PutPiece(new King(Color.Black, Board), new ChessPosition('e', 8).ToPosition());
+            StartPieces(new Rook(Color.Black, Board), 'a', 8);
+            StartPieces(new Rook(Color.Black, Board), 'h', 8);
+            StartPieces(new Knight(Color.Black, Board), 'b', 8);
+            StartPieces(new Knight(Color.Black, Board), 'g', 8);
+            StartPieces(new Bishop(Color.Black, Board), 'c', 8);
+            StartPieces(new Bishop(Color.Black, Board), 'f', 8);
+            StartPieces(new Queen(Color.Black, Board), 'd', 8);
+            StartPieces(new King(Color.Black, Board), 'e', 8);
 
             //foreach (char c in cls)
             //{
             //    Board.PutPiece(new Pawn(Color.Black, Board), new ChessPosition(c, 7).ToPosition());
             //}
+        }
+
+        public HashSet<Piece> GetPiecesOutGame(Color color)
+        {
+            HashSet<Piece> piecesOutGame = new HashSet<Piece>();
+
+            foreach(Piece pieces in PiecesOutGame)
+            {
+                if (pieces.Color == color)
+                    piecesOutGame.Add(pieces);
+            }
+
+            return piecesOutGame;
+        }
+
+        public HashSet<Piece> GetPiecesInGame(Color color)
+        {
+            HashSet<Piece> piecesInGame = new HashSet<Piece>();
+
+            foreach (Piece pieces in AllPiece)
+            {
+                if (pieces.Color == color)
+                    piecesInGame.Add(pieces);
+            }
+
+            piecesInGame.ExceptWith(GetPiecesOutGame(color));
+
+            return piecesInGame;
         }
 
     }

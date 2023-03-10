@@ -44,6 +44,45 @@ namespace console_chess
             Console.ForegroundColor = actualColor;
         }
 
+        public static void ShowGame(ChessGame chessGame)
+        {
+            Console.Clear();
+            PrintBoard(chessGame.Board);
+
+            Console.WriteLine();
+            Console.WriteLine("Captured pieces:");
+            PrintCapturedPieces(chessGame, Color.White);
+            Console.WriteLine();
+            PrintCapturedPieces(chessGame, Color.Black);
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.WriteLine("Move: " + chessGame.Move);
+            Console.WriteLine("Wainting player: " + chessGame.CurrentPlayerColor);
+
+            Console.WriteLine();
+            Console.Write("Enter initial position: ");
+        }
+
+        private static void PrintCapturedPieces(ChessGame chessGame, Color color)
+        {
+            ConsoleColor consoleColor = Console.ForegroundColor;
+            if (color == Color.Black)
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+            Console.Write(color.ToString() + ": [");
+
+            foreach (Piece piece in chessGame.GetPiecesOutGame(color))
+            {
+                Console.Write(piece.ToString() + " ");
+            };
+
+            Console.Write("]");
+
+            if (color == Color.Black)
+                Console.ForegroundColor = consoleColor;
+        }
+
         public static void PrintBoard(Board board, bool[,] possiblesMoves)
         {
             ConsoleColor actualColor = Console.ForegroundColor;
